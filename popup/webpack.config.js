@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-
   entry: [
     './popup/src/scripts/index.js'
   ],
@@ -31,7 +30,26 @@ module.exports = {
         test: /\.css$/,
         include: /(node_modules)/,
         loaders: ['style-loader', 'css-loader'],
-      },
-    ]
+      }, {
+        test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'base64-font-loader'
+      }, {
+        test: /\.(jpg|png|gif)$/,
+        loaders: [
+          'base64-image-loader'
+        ]
+      }, {
+        test: /\.html$/,
+        loader: 'html-loader',
+      }, {
+        test: /\.json$/,
+        loader: 'json-loader',
+      }, {
+        test: /\.(mp4|webm)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+        },
+      }],
   }
 };
