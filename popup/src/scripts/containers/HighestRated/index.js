@@ -34,7 +34,7 @@ class HighestRated extends Component {
 
   render() {
     if (this.state.path) {
-      return <Push path={ '/pageAdded' } />;
+      return <Push path={ this.state.path } />;
     }
 
     return (
@@ -43,7 +43,8 @@ class HighestRated extends Component {
         <Tabs />
         <List type="discussions" />
         <Footer>
-          <ActionButton content="Start a discussion" icon="comment" color="black" basic />
+          <ActionButton content="Start a discussion" icon="comment" color="black" basic
+                        onClick={ event => this.onClick(event, '/startDiscussion') }/>
           <ActionButton content="Add to Portal" icon="add to calendar" color="black" basic
                         onClick={ event => this.onClick(event, '/pageAdded') } />
         </Footer>

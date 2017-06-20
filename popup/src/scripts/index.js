@@ -12,6 +12,7 @@ import SignIn from './containers/SignIn';
 import Settings from './containers/Settings';
 import HighestRated from './containers/HighestRated';
 import PageAdded from './containers/PageAdded';
+import StartDiscussion from './containers/StartDiscussion';
 
 const proxyStore = new Store({
   portName: 'example'
@@ -34,6 +35,8 @@ function renderRoute(location) {
       return <HighestRated />;
     case '/pageAdded':
       return <PageAdded />;
+    case '/startDiscussion':
+      return <StartDiscussion />;
   }
 }
 
