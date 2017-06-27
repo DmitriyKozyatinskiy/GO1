@@ -1,0 +1,20 @@
+#GO1__PopupWindow {
+  @import '~sanitize.css';
+
+  all: initial;
+
+  * {
+    all: initial;
+    box-sizing: border-box;
+  }
+
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+
+  position: absolute;
+  width: 160px;
+  height: auto;
+  z-index: 999999;
+  border-radius: 8px;
+  color: #121f22;
+  background-color: #35464B;
+}

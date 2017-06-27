@@ -37,3 +37,7 @@ node_modules
 build/
 
 .DS_Store
+
+app/content/src/scripts/components_test/
+app/content/src/scripts/containers/
+build.zip
