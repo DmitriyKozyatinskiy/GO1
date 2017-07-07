@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Push } from 'react-history/Actions'
 import styled from 'styled-components';
-import { Header, Icon, Image } from 'semantic-ui-react'
+import { Header, Icon } from 'semantic-ui-react'
 import PageHeader from './../../components/Header';
 import Footer from './../../components/Footer';
 
@@ -31,15 +31,12 @@ const StyledIcon = styled(Icon)`
 class HighestRated extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      path: '',
-    };
   }
 
 
   render() {
-    if (this.state.path) {
-      return <Push path={ this.state.path } />;
+    if (this.props.notes && this.props.notes.length) {
+      return <Push path={ '/discussions' } />
     }
 
     return (
@@ -66,6 +63,7 @@ class HighestRated extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    notes: state.notes,
   };
 };
 

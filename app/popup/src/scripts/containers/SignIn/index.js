@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Push } from 'react-history/Actions'
+import { saveAuth } from './../../../../../actions';
 import styled from 'styled-components';
 import Logo from './../../components/Logo';
 import Heading from './../../components/Heading';
@@ -19,19 +20,35 @@ class SignIn extends Component {
     super(props);
     this.state = {
       submitted: false,
+      email: '',
+      password: '',
     };
   }
 
+
+  onInputChange(event) {
+    const input = event.target;
+    this.setState({
+      [input.name]: input.value,
+    });
+  }
+
+
   onSubmit(event) {
     event.preventDefault();
+    const auth = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    this.props.dispatch(saveAuth(auth));
     this.setState(prevState => ({
       submitted: true,
     }));
   }
 
   render() {
-    if (this.state.submitted) {
-      return <Push path={ '/discussions' }/>
+    if (this.state.submitted || (this.props.auth && this.props.auth.email)) {
+      return <Push path={ '/discussions' } />
     }
 
     return (
@@ -39,8 +56,10 @@ class SignIn extends Component {
         <Logo />
         <Heading type={ 3 }>Sign In to GO1</Heading>
         <form onSubmit={ event => this.onSubmit(event) } >
-          <Input type="email" placeholder="E-mail" />
-          <Input type="password" placeholder="Password" />
+          <Input name="email" type="email"
+                 placeholder="E-mail" required onChange={ event => this.onInputChange(event) } />
+          <Input name="password" type="password"
+                 placeholder="Password" required onChange={ event => this.onInputChange(event) } />
           <Button type="submit">Log In</Button>
           <Divider>Or</Divider>
           <Button type="button" primary onClick={ event => event.preventDefault() }>Register</Button>
@@ -53,6 +72,7 @@ class SignIn extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth
   };
 };
 

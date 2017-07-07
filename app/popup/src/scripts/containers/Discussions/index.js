@@ -25,10 +25,19 @@ class Discussions extends Component {
   }
 
   onClick(discussion) {
-    console.log('CLICK');
     this.setState({
       openedDiscussion: discussion,
     });
+  }
+
+  getDiscussions() {
+    const discussions = [];
+    if (this.props.notes) {
+      this.props.notes.forEach((item, i) => {
+        discussions.push(<DiscussionListItem onClick={ event => this.onClick(item) } key={ i } discussion={ item } />);
+      });
+    }
+    return discussions;
   }
 
   render() {
@@ -38,18 +47,11 @@ class Discussions extends Component {
 
     if (this.state.openedDiscussion) {
       return <Push location={{
-        pathname: '/startDiscussion',
+        pathname: '/discussion',
         state: {
           discussion: this.state.openedDiscussion,
         },
       }} />
-    }
-
-    const discussions = [];
-    if (this.props.notes) {
-      this.props.notes.forEach((item, i) => {
-        discussions.push(<DiscussionListItem onClick={ event => this.onClick(item) } key={ i } discussion={ item } />);
-      });
     }
 
     return (
@@ -57,7 +59,7 @@ class Discussions extends Component {
         <Header path="/discussions" />
         <Tabs />
         <List type="discussions">
-          { discussions }
+          { this.getDiscussions() }
         </List>
         <Footer />
       </Wrapper>
@@ -66,8 +68,11 @@ class Discussions extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('NOTES: ', state.notes);
   return {
-    notes: state.notes
+    notes: state.notes.sort((noteA, noteB) => {
+      return noteB.timestamp - noteA.timestamp;
+    }),
   };
 };
 

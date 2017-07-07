@@ -11,26 +11,6 @@ const StyledTextArea = styled.textarea`
   resize: none;
   outline: 0;
   color: #121F22;
-  :focus {
-    border: 1px solid #31B8DA;
-    border-radius: 4px;
-  }
-  ::placeholder {
-    color: #6C7B7F;
-  }
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #cddbe2; 
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-  }
-  ::-webkit-scrollbar-thumb:window-inactive {
-	  background: #cddbe2;
-  }
 `;
 
 class TextArea extends Component {
@@ -41,7 +21,7 @@ class TextArea extends Component {
 
   render() {
     return (
-      <StyledTextArea { ...this.props } />
+      <StyledTextArea className="scrollable" { ...this.props } />
     );
   }
 }

@@ -18,7 +18,6 @@ class PopupWindow extends Component {
       type,
       quoteText: this.props.selection.trim(),
       title: this.props.selection.trim(),
-      timestamp: Date.now(),
     };
 
     this.props.dispatch(addNewNote(note));

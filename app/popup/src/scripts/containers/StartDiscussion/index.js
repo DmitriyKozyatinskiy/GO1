@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Push } from 'react-history/Actions'
-import { editNote } from './../../../../../actions';
+import { saveNote, editNote } from './../../../../../actions';
 import PageTitle from './../../components/PageTitle';
 import TitleInput from './../../components/TitleInput';
 import QuoteArea from './../../components/QuoteArea';
@@ -19,30 +19,30 @@ class StartDiscussion extends Component {
     }
   }
 
-  onTitleChange(event) {
-    this.setState({
-      title: event.target.value
-    });
-  };
 
-  onTextChange(event) {
+  onInputChange(event) {
+    const input = event.target;
     this.setState({
-      text: event.target.value,
+      [input.name]: input.value,
     });
   }
+
 
   onSubmit(event) {
     event.preventDefault();
     const note = this.props.discussion;
     note.title = this.state.title;
     note.text = this.state.text;
-    note.isSaved = true;
-
-    this.props.dispatch(editNote(note));
+    if (note && note.hasOwnProperty('id')) {
+      this.props.dispatch(editNote(note));
+    } else {
+      this.props.dispatch(saveNote(note));
+    }
     this.setState({
       isSaved: true,
     });
   }
+
 
   render() {
     const selectOptions = [{
@@ -68,13 +68,15 @@ class StartDiscussion extends Component {
     return (
       <form onSubmit={ event => this.onSubmit(event) }>
         <PageTitle text="START DISCUSSION" />
-        <TitleInput value={ this.state.title }
-                    onChange={ event => this.onTitleChange(event) }
+        <TitleInput name="title"
+                    value={ this.state.title }
+                    onChange={ event => this.onInputChange(event) }
                     placeholder="Discussion topic" />
         { discussion.quoteText ? <QuoteArea text={ discussion.quoteText } /> : null }
-        <TextArea placeholder="Add your Note"
+        <TextArea name="text"
+                  placeholder="Add your Note"
                   value={ this.state.text }
-                  onChange={ event => this.onTextChange(event) } />
+                  onChange={ event => this.onInputChange(event) } />
         <div>
           <Select placeholder="My connections" size="small" options={ selectOptions }/>
           <Button type="submit" floated="right" primary style={ buttonStyled }>Add Note</Button>
@@ -85,8 +87,7 @@ class StartDiscussion extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-  };
+  return {};
 };
 
 export default connect(mapStateToProps)(StartDiscussion);

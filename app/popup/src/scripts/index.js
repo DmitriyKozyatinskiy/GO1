@@ -38,9 +38,14 @@ function renderRoute(location) {
     case '/pageAdded':
       return <PageAdded />;
     case '/startDiscussion':
-      return <StartDiscussion discussion={ location.state.discussion } />;
+      return <StartDiscussion discussion={ location.state ? location.state.discussion : {} } />;
     case '/discussion':
-      return <Discussion />;
+      const discussion = location.state ? location.state.discussion : {};
+      if (discussion.isSaved) {
+        return <Discussion discussion={ discussion } />;
+      } else {
+        return <StartDiscussion discussion={ discussion } />;
+      }
   }
 }
 
@@ -51,7 +56,7 @@ const proxyStore = new Store({
 render(
   <Provider store={ proxyStore }>
     <Wrapper>
-      <MemoryHistory initialEntries={ ['/discussions'] }>
+      <MemoryHistory initialEntries={ ['/signIn'] }>
         {({location}) => (
           renderRoute(location)
         )}

@@ -3,23 +3,23 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 100%;
-  max-height: 395px;
-  overflow: auto;
+  margin: 10px 0;
+  padding: 0 20px;
+  font-size: 14px;
+  line-height: 1.5;
 `;
 
-class List extends Component {
+
+class DiscussionMainText extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      canceled: false,
-    };
   }
 
   render() {
     return (
-      <Wrapper className="scrollable" { ...this.props } />
+      <Wrapper { ...this.props } />
     );
   }
 }
 
-export default List;
+export default DiscussionMainText;
