@@ -2,36 +2,19 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Store } from 'react-chrome-redux';
 import { Provider } from 'react-redux';
+import {
+  injectIcons,
+  injectAnchorNode,
+  hasParentWithClass,
+  getSelectionText,
+  getSelectionCoordinates
+} from './utils';
+import './events';
 import PopupWindow from './components/PopupWindow';
 
+injectIcons();
 const proxyStore = new Store({ portName: 'app' });
-
-const anchor = document.createElement('div');
-anchor.id = 'go1-anchor';
-anchor.classList.add('go1-anchor');
-document.body.insertBefore(anchor, document.body.childNodes[0]);
-
-function hasParentWithClass(element, className) {
-  if (element.className && element.className.split(' ').indexOf(className) !== -1) {
-    return true;
-  } else {
-    return element.parentNode && hasParentWithClass(element.parentNode, className);
-  }
-}
-
-function getSelectionData() {
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
-  const area = range.getBoundingClientRect();
-  const coordinates = {
-    top: area.top + window.scrollY,
-    left: area.left + window.scrollX,
-  };
-  return {
-    selection: selection.toString(),
-    coordinates: coordinates,
-  };
-}
+const anchor = injectAnchorNode();
 
 function renderPopup(data) {
   render(
@@ -44,18 +27,17 @@ function renderPopup(data) {
 
 document.addEventListener('click', event => {
   const isPopupWindow = hasParentWithClass(event.target, 'go1-anchor');
-
   if (!isPopupWindow) {
     while (anchor.firstChild) {
       anchor.removeChild(anchor.firstChild);
     }
   }
-
   if (!event.ctrlKey) {
     return;
   }
-
-  const data = getSelectionData();
+  const data = {
+    selection: getSelectionText(),
+    coordinates: getSelectionCoordinates(event),
+  };
   renderPopup(data);
 });
-

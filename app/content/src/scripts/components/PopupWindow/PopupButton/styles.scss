@@ -2,13 +2,29 @@
   .GO1__PopupButton {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 13px 18px;
     border: none;
-    color: #FFFFFF;
+    color: #121f22;
     cursor: pointer;
 
+    &:hover, &:focus {
+      background-color: #cddbe2;
+    }
+
     &:first-of-type {
-      border-bottom: 1px solid #E3EEF3;
+      border-bottom: 1px solid #e3eef3;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    &:last-of-type {
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    i {
+      margin-right: 8px;
+      vertical-align: middle;
     }
   }
 }

@@ -16,8 +16,8 @@ class PopupWindow extends Component {
   onClick(type) {
     const note = {
       type,
-      quoteText: this.props.selection.trim(),
-      title: this.props.selection.trim(),
+      title: this.props.selection,
+      quoteText: this.props.selection,
     };
 
     this.props.dispatch(addNewNote(note));
@@ -27,19 +27,26 @@ class PopupWindow extends Component {
   }
 
   render() {
-    const width = 160;
     const height = 90;
     const styles = {
-      width,
-      height,
       top: this.props.coordinates.top - height - 10,
       left: this.props.coordinates.left,
     };
 
+    if (this.state.isSaved) {
+      return null;
+    }
+
     return (
       <div id="GO1__PopupWindow" style={ styles }>
-        <PopupButton onClick={ event => this.onClick('public') }>Create Note</PopupButton>
-        <PopupButton onClick={ event => this.onClick('private') }>Private Note</PopupButton>
+        <PopupButton onClick={ event => this.onClick('public') }>
+          <i className="material-icons">chat</i>
+          <span>Create Note</span>
+        </PopupButton>
+        <PopupButton onClick={ event => this.onClick('private') }>
+          <i className="material-icons">assignment</i>
+          <span>Private Note</span>
+        </PopupButton>
       </div>
     );
   }

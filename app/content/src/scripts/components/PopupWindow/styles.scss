@@ -8,13 +8,49 @@
     box-sizing: border-box;
   }
 
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
 
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  transform: translate(-50%, -110%);
   position: absolute;
-  width: 160px;
+  width: auto;
   height: auto;
   z-index: 999999;
+  border: 1px solid #121f22;
   border-radius: 8px;
   color: #121f22;
-  background-color: #35464B;
+  background-color: #f1f6f9;
+
+  &::before {
+    content: '';
+    width: .6666em;
+    height: .6666em;
+    position: absolute;
+    top: 100%;
+    right: auto;
+    left: 50%;
+    bottom: auto;
+    margin-top: 1px;
+    border-width: 0 1px 1px 0;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    border-style: solid;
+    border-color: inherit;
+    z-index: -1;
+    transition: background .1s ease;
+    background-color: #f1f6f9;
+  }
 }

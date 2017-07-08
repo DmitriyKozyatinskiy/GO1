@@ -3,6 +3,14 @@
   "name": "GO1",
   "description": "GO1",
   "version": "0.1",
+  "icons": {
+    "16": "static/icon.png",
+    "48": "static/icon.png",
+    "128": "static/icon.png"
+  },
+  "permissions": [
+    "contextMenus"
+  ],
   "background": {
     "scripts": [
       "event.js"
@@ -19,6 +27,5 @@
       "css": [],
       "js": ["content.js"]
     }
-  ],
-  "content_security_policy": "script-src 'self' *://*/*; object-src 'self'"
+  ]
 }

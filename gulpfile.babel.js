@@ -45,6 +45,11 @@ gulp.task('popup-html', ['clean'], () => {
     .pipe(gulp.dest('./build'))
 });
 
+gulp.task('copy-static', ['clean'], () => {
+  return gulp.src('static/*')
+    .pipe(gulp.dest('./build/static'));
+});
+
 gulp.task('copy-manifest', ['clean'], () => {
   return gulp.src('manifest.json')
     .pipe(gulp.dest('./build'));
@@ -54,7 +59,7 @@ gulp.task('clean', (cb) => {
   rimraf('./build', cb);
 });
 
-gulp.task('build', ['copy-manifest', 'popup-html', 'event-js', 'content-js', 'popup-js']);
+gulp.task('build', ['copy-manifest', 'copy-static', 'popup-html', 'event-js', 'content-js', 'popup-js']);
 
 gulp.task('watch', ['default'], () => {
   gulp.watch('app/popup/**/*', ['build']);

@@ -11,6 +11,9 @@ const Wrapper = styled.h3`
   border-bottom: 1px solid #E3EEF3;
   border-right: none;
   border-left: none;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
   font-weight: bold;
 `;
 
@@ -21,8 +24,9 @@ class DiscussionTitle extends Component {
   }
 
   render() {
+    const { text } = this.props;
     return (
-      <Wrapper>{ this.props.text }</Wrapper>
+      <Wrapper title={ text }>{ text }</Wrapper>
     );
   }
 }
